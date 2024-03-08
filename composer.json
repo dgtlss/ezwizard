@@ -1,0 +1,40 @@
+{
+    "name": "dgtlss/ezwizard",
+    "description": "Advanced Installation Wizard for Laravel",
+    "keywords": ["laravel", "wizard", "installation", "quality of life"],
+    "version": "0.0.1",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nathan Langer",
+            "email": "nathanlanger@googlemail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "nunomaduro/laravel-desktop-notifier": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dgtlss\\EzWizard\\": "src/"
+        },
+        "files": [
+			"src/helpers.php"
+		]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-master": "4.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Dgtlss\\EzWizard\\ServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "laravel/framework": "^9.0.0"
+    }
+}
