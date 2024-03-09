@@ -25,7 +25,7 @@ Before you begin, ensure you have a Laravel project set up and a database connec
 ```composer require dgtlss/ezwizard```
 
 2. To start the EzWizard initialization process, run: 
-```php artisan ezwizard:init```
+```php artisan ezwiz:init```
 
 3. Follow the instructions provided to select and install the desired packages.
 
