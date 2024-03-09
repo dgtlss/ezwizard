@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h1 align="center">EzWizard v1.2.0</h1>
+<h1 align="center">EzWizard v1.2.1</h1>
 
 EzWizard is an automation tool for Laravel that simplifies the process of setting up your Laravel application by automating the installation of various Laravel packages. With EzWizard, you can easily add functionality to your projects, such as authentication, image manipulation, social login, PDF generation, and more, with minimal manual effort.
 

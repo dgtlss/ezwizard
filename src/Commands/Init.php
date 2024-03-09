@@ -37,6 +37,10 @@ class Init extends Command
 
     public function handle()
     {
+        // clear the console
+        $this->clear();
+        
+        // Welcome message
         $this->info('🧙‍♂️ Welcome to EzWizard v'.$this->version);
         
         // See what laravel packages the user wants to install
@@ -72,9 +76,10 @@ class Init extends Command
     {
         $command = $commandArray;
         $process = new Process($command);
-        $process->setTty(true);
+        $process->setTimeout(300); // Timeout of 5 minutes
+        $process->setTty(true); // Enable TTY
         $process->setWorkingDirectory(base_path()); // Ensure we are in the base directory of the Laravel project
-        $process->run();
+        $process->run(); // Run the command
     }
 
     /* Functions to install the various packages */
