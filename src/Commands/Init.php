@@ -46,7 +46,7 @@ class Init extends Command
         
         // See what debugging packages the user wants to install
         $this->newLine();
-        $this->info('🔍 Debugging');
+        $this->info('🔍 Monitoring & Debugging');
         $this->debuggingPackages();
 
         // See what styling packages the user wants to install
@@ -64,6 +64,7 @@ class Init extends Command
 
         // All done!
         $this->info('🧙‍♂️ Thank you for using EzWizard!');
+        $this->info('🧙‍♂️ You can now safely remove this package with "composer remove dgtlss/ezwizard"');
         $this->info('🧙‍♂️ To request additional features or packages please visit: https://github.com/dgtlss/ezwizard');
     }
 
@@ -97,6 +98,18 @@ class Init extends Command
             $this->installCashier();
         }
 
+        // Check if the user wants to install telescope
+        $telescope = confirm('Would you like to install Laravel Telescope?', true);
+        if($telescope){
+            $this->installLaravelTelescope();
+        }
+
+        // Check if the user wants to install horizon
+        $horizon = confirm('Would you like to install Laravel Horizon?', true);
+        if($horizon){
+            $this->installLaravelHorizon();
+        }
+
         // Check if the user wants to install intervention
         $intervention = confirm('Would you like to install Intervention Image?', true);
         if($intervention){
@@ -108,6 +121,13 @@ class Init extends Command
         if($socialite){
             $this->installSocialite();
         }
+
+        // Check if the user wants to install DomPDF
+        $dompdf = confirm('Would you like to install DomPDF?', true);
+        if($dompdf){
+            $this->installDomPDF();
+        }
+
     }
 
     private function debuggingPackages()
@@ -180,6 +200,8 @@ class Init extends Command
         $authPackage = select('Which Laravel Auth package would you like to install?', [
             'Laravel Breeze',
             'Laravel Jetstream',
+            'Laravel Sanctum',
+            'Laravel Fortify',
             'Laravel UI',
             'None'
         ]);
@@ -194,6 +216,7 @@ class Init extends Command
             $this->info('🔐 Laravel Breeze installation complete');
             $this->itemsUsed[] = 'Laravel Breeze';
         }
+
         // If they want to install Jetstream
         if($authPackage == 'Laravel Jetstream'){
             $this->info('🔐 Installing Laravel Jetstream');
@@ -260,6 +283,27 @@ class Init extends Command
             $this->itemsUsed[] = 'Laravel Jetstream';
 
         }
+
+        // If they want to install Sanctum
+        if($authPackage == 'Laravel Sanctum'){
+            $this->info('🔐 Running composer require laravel/sanctum');
+            exec('composer require laravel/sanctum');
+            $this->info('🔐 Running php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"');
+            $this->artisanCommand(['php', 'artisan', 'vendor:publish', '--provider="Laravel\Sanctum\SanctumServiceProvider"']);
+            $this->info('🔐 Laravel Sanctum installation complete');
+            $this->itemsUsed[] = 'Laravel Sanctum';
+        }
+
+        // If they want to install Fortify
+        if($authPackage == 'Laravel Fortify'){
+            $this->info('🔐 Running composer require laravel/fortify');
+            exec('composer require laravel/fortify');
+            $this->info('🔐 Running php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"');
+            $this->artisanCommand(['php', 'artisan', 'vendor:publish', '--provider="Laravel\Fortify\FortifyServiceProvider"']);
+            $this->info('🔐 Laravel Fortify installation complete');
+            $this->itemsUsed[] = 'Laravel Fortify';
+        }
+
         // If they want to install Laravel UI
         if($authPackage == 'Laravel UI'){
             $this->info('🔐 Installing Laravel UI');
@@ -336,6 +380,17 @@ class Init extends Command
         $this->itemsUsed[] = 'Intervention Image';
     }
 
+    private function installLaravelFolio()
+    {
+        $this->info('📄 Installing Laravel Folio');
+        $this->info('📄 Running composer require laravel/folio');
+        exec('composer require laravel/folio');
+        $this->info('📄 Running php artisan folio:install');
+        $this->artisanCommand(['php', 'artisan', 'folio:install']);
+        $this->info('📄 Laravel Folio installation complete');
+        $this->itemsUsed[] = 'Laravel Folio';
+    }
+
     private function installSocialite()
     {
         $this->info('🔐 Running composer require laravel/socialite');
@@ -344,7 +399,39 @@ class Init extends Command
         $this->itemsUsed[] = 'Laravel Socialite';
     }
 
-    /* Debugging */
+    private function installDomPDF()
+    {
+        $this->info('📄 Running composer require dompdf/dompdf');
+        exec('composer require dompdf/dompdf');
+        $this->info('📄 DomPDF installation complete');
+        $this->itemsUsed[] = 'DomPDF';
+    }
+
+    /* Debugging & Monitoring */
+    private function installLaravelTelescope()
+    {
+        $this->info('🔍 Installing Laravel Telescope');
+        $this->info('🔍 Running composer require laravel/telescope');
+        exec('composer require laravel/telescope');
+        $this->info('🔍 Running php artisan telescope:install');
+        $this->artisanCommand(['php', 'artisan', 'telescope:install']);
+        $this->info('🔍 Laravel Telescope installation complete');
+
+        $this->itemsUsed[] = 'Laravel Telescope';
+    }
+
+    private function installLaravelHorizon()
+    {
+        $this->info('🔍 Installing Laravel Horizon');
+        $this->info('🔍 Running composer require laravel/horizon');
+        exec('composer require laravel/horizon');
+        $this->info('🔍 Running php artisan horizon:install');
+        $this->artisanCommand(['php', 'artisan', 'horizon:install']);
+        $this->info('🔍 Laravel Horizon installation complete');
+
+        $this->itemsUsed[] = 'Laravel Horizon';
+    }
+
     private function installDebugbar()
     {
         $this->info('🐞 Installing Laravel Debugbar');
@@ -411,11 +498,15 @@ class Init extends Command
                 /* Laravel Packages */
                 'Laravel Breeze' => 'https://laravel.com/docs/starter-kits#laravel-breeze',
                 'Laravel Jetstream' => 'https://jetstream.laravel.com/introduction.html',
+                'Laravel Sanctum' => 'https://laravel.com/docs/sanctum',
+                'Laravel Fortify' => 'https://laravel.com/docs/fortify',
                 'Laravel UI' => 'https://github.com/laravel/ui',
                 'Laravel Livewire' => 'https://livewire.laravel.com/docs/quickstart',
+                'Laravel Folio' => 'https://laravel.com/docs/folio',
                 'Laravel Cashier' => 'https://laravel.com/docs/billing',
                 'Intervention Image' => 'http://image.intervention.io/',
                 'Laravel Socialite' => 'https://laravel.com/docs/socialite',
+                'DomPDF' => 'https://github.com/dompdf/dompdf',
                 /* Monitoring */
                 'Laravel Telescope' => 'https://laravel.com/docs/telescope',
                 'Laravel Horizon' => 'https://laravel.com/docs/horizon',
