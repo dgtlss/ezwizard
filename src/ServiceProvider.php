@@ -13,7 +13,6 @@
             $this->setupConfig(); // Load config
             if ($this->app->runningInConsole()) {
                 $this->commands([
-                    Commands\Map::class,
                     Commands\Init::class,
                 ]);
             }
