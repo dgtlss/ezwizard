@@ -38,12 +38,17 @@ class Init extends Command
     public function handle()
     {
         $this->info('🧙‍♂️ Welcome to EzWizard v'.$this->version);
-
+        $this->newLine();
         // See what laravel packages the user wants to install
+        $this->info('📦 Laravel Packages');
         $this->laravelPackages();
         // See what debugging packages the user wants to install
+        $this->newLine();
+        $this->info('🔍 Debugging');
         $this->debuggingPackages();
         // See what styling packages the user wants to install
+        $this->newLine();
+        $this->info('🎨 Styling');
         $this->stylingPackages();
 
         // Check if the user has a database configured
