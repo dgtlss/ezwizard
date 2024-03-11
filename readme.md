@@ -22,7 +22,7 @@ Before you begin, ensure you have a Laravel project set up and a database connec
 
 
 1. Install EzWizard via Composer:
-```composer require dgtlss/ezwizard```
+```composer require dgtlss/ezwizard --dev```
 
 2. To start the EzWizard initialization process, run: 
 ```php artisan ezwiz:init```

@@ -523,10 +523,12 @@ class Init extends Command
                 'Tailwind CSS' => 'https://tailwindcss.com/docs/installation',
             ];
 
+            $this->newLine();
             // Loop through the items used and display the documentation
             foreach($this->itemsUsed as $item){
                 $this->info('📚 '.$item.' documentation: '.$documentation[$item]);
             }
+            $this->newLine();
         } else {
             $this->info('📚 No items have been installed');
         }
