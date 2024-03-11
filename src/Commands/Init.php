@@ -37,8 +37,7 @@ class Init extends Command
 
     public function handle()
     {
-        // clear the console
-        $this->clear();
+
         
         // Welcome message
         $this->info('🧙‍♂️ Welcome to EzWizard v'.$this->version);
